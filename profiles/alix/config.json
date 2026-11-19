@@ -1,0 +1,77 @@
+{
+  "profile_name": "Alix",
+  "user_name": "Christian Duguay",
+  "archetype": "Binôme SRE & Copilote Souverain",
+  "first_run_completed": true,
+  "_note_renovation": "Rénovation du 16 nov 2026 (Thot & Christian) : type « chaine » = Chaîne Souveraine. Cloud frontier d'abord (vitesse), repli local intégré ensuite : le même gemma-4-E2B .litertlm que le NPU, chargé DANS le processus du harnais sur le CPU (XNNPACK, ~30 tok/s, aucun serveur). Le NPU n'est pas dans la chaîne : il appartient au Démon Local (un seul propriétaire). Un maillon sans clé dans secrets.json est sauté sans bruit. Vérifier les noms de modèles groq/gemini/openrouter au moment de coller les clés.",
+  "backend": {
+    "type": "openvino_orchestre",
+    "model": "openvino_4_specialistes_npu_gpu",
+    "base_url": "http://127.0.0.1:11434",
+    "llamacpp_base_url": "http://127.0.0.1:8080",
+    "npu_model_path": "C:\\Alix\\Modeles_OpenVINO\\Heimdall\\Qwen3-Embedding-0.6B-int8-ov",
+    "reranker_model_path": "C:\\Alix\\Modeles_OpenVINO\\Heimdall\\bge-reranker-v2-m3-int8-ov",
+    "gpu_model_path": "C:\\Alix\\Modeles_OpenVINO\\Specialistes",
+    "temperature": 0.7,
+    "chaine": [
+      {
+        "nom": "openvino_local",
+        "type": "openvino_orchestre",
+        "actif": true
+      },
+      {
+        "nom": "deepseek",
+        "type": "openai_compat",
+        "url": "https://api.deepseek.com/v1/chat/completions",
+        "model": "deepseek-chat",
+        "cle": "deepseek_api_key",
+        "actif": true
+      },
+      {
+        "nom": "groq",
+        "type": "openai_compat",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "model": "llama-3.3-70b-versatile",
+        "cle": "groq_api_key",
+        "actif": true
+      },
+      {
+        "nom": "gemini",
+        "type": "openai_compat",
+        "url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+        "model": "gemini-2.5-flash",
+        "cle": "gemini_api_key",
+        "actif": true
+      },
+      {
+        "nom": "openrouter",
+        "type": "openai_compat",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "model": "deepseek/deepseek-chat-v3.1:free",
+        "cle": "openrouter_api_key",
+        "actif": true
+      }
+    ]
+  },
+  "vision": {
+    "enabled": true,
+    "_note": "Spécialiste VOIR OpenVINO INT4 débridé sur GPU Arc 140V (déchargé immédiatement après chaque regard selon PSI-26).",
+    "openvino_model_path": "C:\\Alix\\Modeles_OpenVINO\\Specialistes\\Qwen2.5-VL-7B-Instruct-abliterated-int4-ov",
+    "litert_model_path": "",
+    "ollama_model": ""
+  },
+  "vaults": [
+    "C:\\Alix\\SAUVEGARDE_ALIX\\Cerveau Alix",
+    "C:\\Alix\\SAUVEGARDE_ALIX\\Obsidian_Vault_Veralume",
+    "C:\\Alix\\SAUVEGARDE_ALIX\\Obsidian_Vault_79_Skills",
+    "C:\\Alix\\SAUVEGARDE_ALIX\\Obsidian_Vault_Langage_Vectoriel"
+  ],
+  "hardware": {
+    "target": "Intel Core Ultra 7 258V (Lunar Lake)",
+    "npu": "Intel AI Boost 48 TOPS — Heimdall Bicéphale OpenVINO (Qwen3-Embedding-0.6B + BGE-Reranker-v2-M3)",
+    "gpu": "Intel Arc 140V Xe2 16 Go — Slot Unique 4 Spécialistes OpenVINO INT4",
+    "cpu": "8 coeurs x86 — Connectome RAM Port 5070 + Solveurs Kernel Port 5071"
+  },
+  "max_memory_snippets": 5,
+  "enable_cognitive_immunity": true
+}
